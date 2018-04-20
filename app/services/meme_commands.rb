@@ -10,6 +10,8 @@ class MemeCommands
 
     minutes = parse_into_minutes(resp)
 
+    puts minutes
+
     return minutes / 3.75
   end
 
@@ -25,9 +27,9 @@ class MemeCommands
       number = unit_and_number[0].to_i
       unit = unit_and_number[1]
 
-      if unit == "hours"
+      if unit == "hours" || unit == "hour"
         number * 60
-      elsif unit == "minutes"
+      elsif unit == "minutes" || unit == "minute"
         number
       else
         0
