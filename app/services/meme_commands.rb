@@ -5,7 +5,7 @@ class MemeCommands
 
   attr_accessor :channel
 
-  def get_uptime_of_stream_in_akm_blades
+  def akm_blade_uptime
     resp = HTTParty.get(uptime_url)
 
     minutes = parse_into_minutes(resp)
