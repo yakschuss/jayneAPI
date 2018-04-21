@@ -12,7 +12,7 @@ class MemeCommands
 
     puts minutes
 
-    return minutes / 3.75
+    return (minutes / 3.75).round(2)
   end
 
   def parse_into_minutes(response)
