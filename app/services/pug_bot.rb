@@ -24,7 +24,7 @@ class PugBot
 
   def test
     bot.command(:test) do |event|
-      bot.send_message("439500447930253312", event.inspect)
+      bot.send_message(422472661902426122, "I love #{event.user.name}")
     end
   end
 end
