@@ -8,6 +8,7 @@ module PugBot
 
       def process
         return invalid_pug_type_response if invalid_pug_type
+        return duplicate_member_response if duplicate_member
         join_user_to_pug
 
         respond
@@ -76,6 +77,14 @@ module PugBot
 
       def invalid_pug_type
         !Pug::PUG_TYPES.include?(pug_type)
+      end
+
+      def duplicate_member_response
+        "You're already a member of that PUG. Give someone else a shot, alright?"
+      end
+
+      def duplicate_member
+        pug.pug_members.pluck(:ping_string).include?(ping_string)
       end
 
       def respond

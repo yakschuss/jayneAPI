@@ -16,7 +16,7 @@ module PugBot
     def define_commands
       test
       join_pug_command
-      # leave_pug_command
+      leave_pug_command
       # request_sub_command
       # become_sub_command
       # list_command
@@ -35,6 +35,12 @@ module PugBot
     def join_pug_command
       bot.command(:"join") do |event|
         Commands::JoinCommand.new(event, bot).process
+      end
+    end
+
+    def leave_pug_command
+      bot.command(:"leave") do |event|
+        Commands::LeaveCommand.new(event, bot).process
       end
     end
   end
