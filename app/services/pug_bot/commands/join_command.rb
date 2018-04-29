@@ -7,8 +7,10 @@ module PugBot
       end
 
       def process
-        return invalid_pug_type_response if invalid_pug_type
-        return duplicate_member_response if duplicate_member
+        return missing_arguments_response if missing_arguments?
+        return invalid_pug_type_response if invalid_pug_type?
+        return invalid_region_response if invalid_region?
+        return duplicate_member_response if duplicate_member?
         join_user_to_pug
 
         respond
@@ -32,11 +34,11 @@ module PugBot
       end
 
       def pug
-        @pug ||= Pug.find_or_create_by!(pug_type: pug_type)
+        @pug ||= Pug.find_or_create_by!(pug_type: pug_type, region: region)
       end
 
       def user_response
-        "#{ping_string}, You've been added to the #{pug.pug_type} PUG successfully. The total number of members so far is: #{pug.pug_members.count}/12. The total number of captains so far is #{pug.captains.count}/2. When the pug is full, everyone will be notified."
+        "#{ping_string}, You've been added to the #{pug.region} #{pug.pug_type} PUG successfully. The total number of members so far is: #{pug.pug_members.count}/12. The total number of captains so far is #{pug.captains.count}/2. When the pug is full, everyone will be notified."
       end
 
       def arguments
@@ -47,20 +49,28 @@ module PugBot
         @arguments ||= event.content.strip.split(" ")
       end
 
-      def missing_arguments
-        arguments.length < 2
+      def missing_arguments?
+        arguments.length <= 3 && arguments.last == "Captain"
+      end
+
+      def missing_arguments_response
+        "You're missing some information. Check the format and try again."
       end
 
       def battlenet
         arguments[0]
       end
 
+      def region
+        arguments[1].upcase
+      end
+
       def pug_type
-        arguments[1].downcase
+        arguments[2].downcase
       end
 
       def captain
-        !!arguments[2]
+        !!arguments[3]
       end
 
       def ping_string
@@ -75,15 +85,23 @@ module PugBot
         "That pug type doesn't currently exist. Talk to a mod or pug staff member about different pug classifications."
       end
 
-      def invalid_pug_type
+      def invalid_pug_type?
         !Pug::PUG_TYPES.include?(pug_type)
+      end
+
+      def invalid_region_response
+        "What region is that? WHERE THE HELL ARE YOU FROM?!"
+      end
+
+      def invalid_region?
+        !Pug::REGIONS.include?(region)
       end
 
       def duplicate_member_response
         "You're already a member of that PUG. Give someone else a shot, alright?"
       end
 
-      def duplicate_member
+      def duplicate_member?
         pug.pug_members.pluck(:ping_string).include?(ping_string)
       end
 
@@ -96,12 +114,6 @@ module PugBot
         pug.destroy
 
         ""
-      end
-
-      def pug_ping
-        pug.pug_members.each do |member|
-          bot.send_message(439500447930253312, member.pug_ping)
-        end
       end
     end
   end

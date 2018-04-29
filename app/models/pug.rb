@@ -2,13 +2,19 @@ class Pug < ApplicationRecord
   PUG_TYPES = %w(
     tryhard
     mixed
-    eu
+  )
+
+  REGIONS = %w(
+   EU
+   NA
+   OCE
   )
 
   has_many :pug_members, dependent: :destroy
 
 
   validates :pug_type, inclusion: { in: PUG_TYPES }
+  validates :region, inclusion: { in: REGIONS }
 
   def full?
     pug_members.count == 12

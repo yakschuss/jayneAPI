@@ -7,19 +7,19 @@ module PugBot
       end
 
       def process
-        pug = Pug.find_by(pug_type: pug_type)
+        pug = Pug.find_by(pug_type: pug_type, region: region)
 
         if pug
           member = pug.pug_members.find_by(ping_string: ping_string)
 
           if member
             member.destroy
-            "You have been successfully removed from the #{pug_type} PUG."
+            "You have been successfully removed from the #{region}/#{pug_type} PUG."
           else
             "You're not a part of that pug."
           end
         else
-          "There's no pug currently going on."
+          "Check the region/level, there might not be a pug going on or you might've spelled something incorrectly."
         end
       end
 
@@ -37,7 +37,11 @@ module PugBot
       end
 
       def pug_type
-        arguments[0].downcase
+        arguments[1].downcase
+      end
+
+      def region
+        arguments[0].upcase
       end
 
       def ping_string
