@@ -10,8 +10,7 @@ module PugBot
       end
 
       def process
-        return missing_arguments_response if missing_arguments?
-        return invalid_pug_type_response if invalid_pug_type?
+        return missing_arguments_response if missing_arguments? return invalid_pug_type_response if invalid_pug_type?
         return invalid_region_response if invalid_region?
         return duplicate_member_response if duplicate_member?
         join_user_to_pug
