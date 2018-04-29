@@ -5,6 +5,8 @@ bot = Discordrb::Commands::CommandBot.new(
   prefix: "p!",
 )
 
-pugbot = PugBot.new(bot)
+PugBot::PREFIX = bot.prefix
+
+pugbot = PugBot::Bot.new(bot)
 
 pugbot.run
