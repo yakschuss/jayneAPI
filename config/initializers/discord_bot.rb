@@ -1,7 +1,7 @@
 
 bot = Discordrb::Commands::CommandBot.new(
   client_id: 439188930873524252,
-  token: ENV["DISCORD_BOT_TOKEN"],
+  token: ENV["DISCORD_PUG_BOT_TOKEN"],
   prefix: "?",
 )
 
