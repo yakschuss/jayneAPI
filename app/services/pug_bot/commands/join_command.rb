@@ -10,9 +10,11 @@ module PugBot
       end
 
       def process
-        return missing_arguments_response if missing_arguments? return invalid_pug_type_response if invalid_pug_type?
+        return missing_arguments_response if missing_arguments?
+        return invalid_pug_type_response if invalid_pug_type?
         return invalid_region_response if invalid_region?
         return duplicate_member_response if duplicate_member?
+
         join_user_to_pug
 
         respond
@@ -44,7 +46,7 @@ module PugBot
       end
 
       def missing_arguments?
-        arguments.length <= 3 && arguments.last == "Captain"
+        (arguments.length <= 3 && arguments.last == "Captain") || arguments.length < 3
       end
 
       def missing_arguments_response
