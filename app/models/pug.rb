@@ -28,6 +28,10 @@ class Pug < ApplicationRecord
     pug_members.where(captain: true).pluck(:ping_string).first(2)
   end
 
+  def captain_names
+    pug_members.where(captain: true).pluck(:discord_tag).first(2)
+  end
+
   def pug_ping
     """
 You are being pinged to play in a #{pug_type} PUG. Please report to the nearest open blue #{pug_type} voice channel. #{captain_string}

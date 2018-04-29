@@ -46,7 +46,7 @@ module PugBot
       def members
         members = pug.pug_members.pluck(:discord_tag)
 
-        "The current members of the #{pug.region} #{pug.pug_type} pug are: \n #{members.join(",\n")} \n #{members.count}/12"
+        "The current members of the #{pug.region} #{pug.pug_type} pug are: \n #{members.join(",\n")} \n Captains: #{pug.captain_names.join("\n")} \n #{members.count}/12"
       end
 
       def missing_arguments
