@@ -2,7 +2,7 @@
 bot = Discordrb::Commands::CommandBot.new(
   client_id: 439188930873524252,
   token: ENV["DISCORD_BOT_TOKEN"],
-  prefix: "p!",
+  prefix: "?",
 )
 
 PugBot::PREFIX = bot.prefix

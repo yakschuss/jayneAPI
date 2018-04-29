@@ -33,9 +33,8 @@ module PugBot
     end
 
     def join_pug_command
-      bot.command(:"join-pug") do |event|
-        args = Commands::JoinCommand.new(event).process
-        bot.send_message(439500447930253312, args.to_s )
+      bot.command(:"join") do |event|
+        Commands::JoinCommand.new(event, bot).process
       end
     end
   end

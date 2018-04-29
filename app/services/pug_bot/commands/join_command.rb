@@ -1,29 +1,32 @@
 module PugBot
   module Commands
     class JoinCommand
-      def initialize(event)
+      def initialize(event, bot)
         @event = event
+        @bot = bot
       end
 
       def process
         return invalid_pug_type_response if invalid_pug_type
         join_user_to_pug
 
-        generate_response
+        respond
+
+        handle_full_pug if pug.full?
       end
 
 
       private
 
-      attr_accessor :event
+      attr_accessor :event, :bot
 
       def join_user_to_pug
         PugMember.create!(
-          pug_id: pug.id,
-          ping_string: ping_string,
+          pug_id:      pug.id,
+          captain:     captain,
+          battlenet:   battlenet,
           discord_tag: discord_tag,
-          battlenet: battlenet,
-          captain: captain,
+          ping_string: ping_string,
         )
       end
 
@@ -31,8 +34,8 @@ module PugBot
         @pug ||= Pug.find_or_create_by!(pug_type: pug_type)
       end
 
-      def generate_response
-
+      def user_response
+        "#{ping_string}, You've been added to the #{pug.pug_type} PUG successfully. The total number of members so far is: #{pug.pug_members.count}/12. The total number of captains so far is #{pug.captains.count}/2. When the pug is full, everyone will be notified."
       end
 
       def arguments
@@ -40,7 +43,7 @@ module PugBot
         content = event.content
         content.slice!(command)
 
-        @arguments ||= event.content.strip.split("|")
+        @arguments ||= event.content.strip.split(" ")
       end
 
       def missing_arguments
@@ -73,6 +76,23 @@ module PugBot
 
       def invalid_pug_type
         !Pug::PUG_TYPES.include?(pug_type)
+      end
+
+      def respond
+        bot.send_message(event.channel.id, user_response)
+      end
+
+      def handle_full_pug
+        bot.send_message(439500447930253312, pug.pug_ping)
+        pug.destroy
+
+        ""
+      end
+
+      def pug_ping
+        pug.pug_members.each do |member|
+          bot.send_message(439500447930253312, member.pug_ping)
+        end
       end
     end
   end
