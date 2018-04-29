@@ -1,6 +1,9 @@
 module PugBot
   module Commands
     class JoinCommand
+
+      include PugBot::Arguments
+
       def initialize(event, bot)
         @event = event
         @bot = bot
@@ -39,14 +42,6 @@ module PugBot
 
       def user_response
         "#{ping_string}, You've been added to the #{pug.region} #{pug.pug_type} PUG successfully. The total number of members so far is: #{pug.pug_members.count}/12. The total number of captains so far is #{pug.captains.count}/2. When the pug is full, everyone will be notified."
-      end
-
-      def arguments
-        command = PREFIX + event.command.name.to_s
-        content = event.content
-        content.slice!(command)
-
-        @arguments ||= event.content.strip.split(" ")
       end
 
       def missing_arguments?
