@@ -8,6 +8,7 @@ class Pug < ApplicationRecord
    EU
    NA
    OCE
+   PTR
   )
 
   has_many :pug_members, dependent: :destroy
@@ -30,6 +31,14 @@ class Pug < ApplicationRecord
 
   def captain_names
     pug_members.where(captain: true).pluck(:discord_tag).first(2)
+  end
+
+  def member_count
+    "#{pug_members.count}/12"
+  end
+
+  def meta_data
+    "#{region} #{pug_type} - #{member_count}"
   end
 
   def pug_ping

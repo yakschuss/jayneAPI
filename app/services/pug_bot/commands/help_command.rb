@@ -1,0 +1,152 @@
+module PugBot
+  module Commands
+    class HelpCommand
+
+      include PugBot::Arguments
+
+      def initialize(event, bot)
+        @event = event
+        @bot = bot
+      end
+
+      def process
+        if command.nil?
+          all
+        else
+          begin
+            self.send(command.gsub("-", "_").to_sym)
+          rescue NoMethodError
+            "I'm not sure what you're asking. Type ?help to see available commands."
+          end
+        end
+      end 
+      private
+
+      attr_accessor :event, :bot
+
+      def command
+        arguments[0]
+      end
+
+      def join
+        """
+        ```
+The structure for the join command is as follows:
+
+?join Battlenet Region PugType Captain[optional]
+
+If you leave any out, you will be unable to join the pug.
+
+The order is important, and so is spelling!
+
+You can leave off 'Captain' if you don't wish to be a captain.
+          ```
+        """
+      end
+
+      def leave
+        """
+```
+The structure for the leave command is as follows:
+
+?leave Region PugType
+
+If you leave any out, the pug you're trying to leave won't be found.
+
+The order is important, and so is spelling!
+```
+        """
+      end
+
+      def sub
+        """
+```
+If you wish to become a sub for a region/type PUG, you can register for a total of two hours. Pings for subs are on a first come first serve basis. If you miss your ping, you will be passed over and will need to re-register.
+
+The format is as follows:
+
+?sub Battlenet Region PugType
+
+Spelling is important, and so is order!
+```
+        """
+      end
+
+      def sub_request
+        """
+```
+Specify a region and a pug type to get the battlenet of a player who has registered for pugs.
+
+They'll receive a DM that you're looking to have them sub!
+
+A certain amount of time to wait for the player to respond is likely, so give them the benefit of the doubt.
+
+If you re-request, it'll take the next available PUG, but again, you should try to give the first sub a chance to come back.
+
+The format is as follows:
+
+?sub-request Region PugType
+```
+        """
+      end
+
+      def list_members
+        """
+        ```
+This will give you a current list of players in the PUG.
+
+If you specify a region and a type, it will get the unfinished PUG for that classification.
+
+If you don't specify AND you're in a PUG, it will get the list for the PUG you're in.
+
+?list-members [optional] Region PugType
+```
+        """
+      end
+
+      def list_pugs
+        """
+        ```
+This will give you a current list of all the PUGs that are currently not fully registered.
+
+
+?list-pugs
+```
+        """
+      end
+
+      def all
+        """
+       ```
+Available Commands:
+
+join BattleNet Region PugType Captain[optional] \n
+leave Region PugType\n
+sub BattleNet Region PugType\n
+sub-request Region PugType\n
+list-members [optional] Region PugType\n
+list-pugs \n
+remove-member \n
+
+PugTypes: #{Pug::PUG_TYPES.join(", ")}
+Regions: #{Pug::REGIONS.join(", ")}
+        ```
+        """
+      end
+
+      def remove_member
+        """
+        ```
+This command is usable by PUG staff and Mods only.
+
+It forcibly removes a member of a pug from the registration, if they're afk or banned from joining PUGs.
+
+If you replace Region and PugType with the word 'all' - it will remove all of the selected user's registrations.
+
+?remove-member DiscordTag [optional]|all] Region PugType 
+```
+        """
+      end
+    end
+  end
+end

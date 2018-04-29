@@ -18,9 +18,23 @@ module PugBot
       leave_pug_command
       request_sub_command
       become_sub_command
-      list_command
-      # delete_join_command
-      # help_command
+      list_members_command
+      list_pugs_command
+      remove_member_command
+      help_command
+    end
+
+
+    def test
+      bot.command(:"test") do |event|
+        "hi, what do you want"
+      end
+    end
+
+    def help_command
+      bot.command(:"help") do |event|
+        Commands::HelpCommand.new(event, bot).process
+      end
     end
 
     def join_pug_command
@@ -47,10 +61,23 @@ module PugBot
       end
     end
 
-    def list_command
-      bot.command(:"list") do |event|
-        Commands::List.new(event, bot).process
+    def list_members_command
+      bot.command(:"list-members") do |event|
+        Commands::List.new(event, bot).list_members
       end
     end
+
+    def list_pugs_command
+      bot.command(:"list-pugs") do |event|
+        Commands::List.new(event, bot).pugs
+      end
+    end
+
+    def remove_member_command
+      bot.command(:"remove-member") do |event|
+        Commands::RemoveMember.new(event, bot).process
+      end
+    end
+
   end
 end

@@ -9,7 +9,7 @@ module PugBot
         @bot = bot
       end
 
-      def process
+      def list_members
         return missing_arguments if missing_arguments?
 
         if pug.nil?
@@ -17,6 +17,21 @@ module PugBot
         end
 
         members
+      end
+
+      def pugs
+        pugs = Pug.all
+
+        if pugs
+          meta_data = pugs.map(&:meta_data).join("\n")
+
+          """
+The current PUGs that are still being formed are for the following regions:
+#{meta_data}
+          """
+        else
+          "There are no PUGs, currently."
+        end
       end
 
       private

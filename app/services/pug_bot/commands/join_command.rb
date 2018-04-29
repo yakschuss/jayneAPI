@@ -106,7 +106,7 @@ module PugBot
       end
 
       def handle_full_pug
-        bot.send_message(439500447930253312, pug.pug_ping)
+        bot.send_message(440249322156851221, pug.pug_ping)
         pug.destroy
 
         ""
