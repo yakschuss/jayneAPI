@@ -1,0 +1,2 @@
+class ChannelRecord < ApplicationRecord
+end

@@ -12,7 +12,7 @@ gem "pg"
 
 
 gem "httparty"
-gem "discordrb"
+gem "discordrb", git: 'https://github.com/meew0/discordrb.git'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

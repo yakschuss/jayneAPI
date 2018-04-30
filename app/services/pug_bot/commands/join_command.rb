@@ -15,7 +15,7 @@ module PugBot
         return invalid_region_response if invalid_region?
         return duplicate_member_response if duplicate_member?
 
-        join_user_to_pug
+        @pug = PugBot::CreatePug.new(attributes, event).run!
 
         respond
 
@@ -25,20 +25,17 @@ module PugBot
 
       private
 
-      attr_accessor :event, :bot
+      attr_accessor :event, :bot, :pug
 
-      def join_user_to_pug
-        PugMember.create!(
-          pug_id:      pug.id,
+      def attributes
+        {
+          region:      region,
           captain:     captain,
+          pug_type:    pug_type,
           battlenet:   battlenet,
-          discord_tag: discord_tag,
           ping_string: ping_string,
-        )
-      end
-
-      def pug
-        @pug ||= Pug.find_or_create_by!(pug_type: pug_type, region: region)
+          discord_tag: discord_tag,
+        }
       end
 
       def user_response
@@ -56,8 +53,7 @@ module PugBot
       def battlenet
         arguments[0]
       end
-
-      def region
+def region
         arguments[1].upcase
       end
 
@@ -98,7 +94,11 @@ module PugBot
       end
 
       def duplicate_member?
-        pug.pug_members.pluck(:ping_string).include?(ping_string)
+        types_and_regions = PugMember.where(ping_string: ping_string).map do |member|
+          [member.pug.pug_type, member.pug.region]
+        end
+
+        types_and_regions.include?([pug_type, region])
       end
 
       def respond
@@ -107,9 +107,6 @@ module PugBot
 
       def handle_full_pug
         bot.send_message(440249322156851221, pug.pug_ping)
-        pug.destroy
-
-        ""
       end
     end
   end
