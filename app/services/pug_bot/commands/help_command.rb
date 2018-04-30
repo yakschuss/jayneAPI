@@ -31,15 +31,14 @@ module PugBot
       def join
         """
         ```
-The structure for the join command is as follows:
+The join command adds you as a registered user of the specified PUG.
 
-?join Battlenet Region PugType Captain[optional]
+You will need your Battlenet capitalized and spelled correctly, followed by the region you wish to register for and the type of pug you want to play in. (High SR or mixed SR). You can also add the word 'Captain' at the end, if you wish to volunteer for the Captain role.
 
-If you leave any out, you will be unable to join the pug.
+?join <Battlenet> <Region> <PugType> <Captain>[optional]
 
-The order is important, and so is spelling!
+Example: ?join YacoTaco#11402 NA MixedSR Captain
 
-You can leave off 'Captain' if you don't wish to be a captain.
           ```
         """
       end
@@ -122,13 +121,13 @@ Available Commands:
 
 All commands must be prefixed by #{PugBot::PREFIX}
 
-join BattleNet Region PugType Captain[optional] \n
-leave Region PugType\n
-sub BattleNet Region PugType\n
-sub-request Region PugType\n
-list-members [optional] Region PugType\n
+join <BattleNet> <Region> <PugType> <Captain>[optional] \n
+leave <Region> <PugType>\n
+sub <BattleNet> <Region> <PugType>\n
+sub-request <Region> <PugType>\n
+list-members [optional] <Region> <PugType>\n
 list-pugs \n
-remove-member \n
+remove \n
 clear-pug \n
 
 PugTypes: #{Pug::PUG_TYPES.join(", ")}
@@ -137,7 +136,7 @@ Regions: #{Pug::REGIONS.join(", ")}
         """
       end
 
-      def remove_member
+      def remove
         """
         ```
 This command is usable by PUG staff and Mods only.
@@ -146,7 +145,7 @@ It forcibly removes a member of a pug from the registration, if they're afk or b
 
 If you replace Region and PugType with the word 'all' - it will remove all of the selected user's registrations.
 
-?remove-member DiscordTag [optional]|all] Region PugType 
+?remove DiscordTag [optional]|all] Region PugType 
 ```
         """
       end

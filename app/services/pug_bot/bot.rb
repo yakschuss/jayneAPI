@@ -75,7 +75,7 @@ module PugBot
     end
 
     def remove_member_command
-      bot.command(:"remove-member") do |event|
+      bot.command(:"remove") do |event|
         Commands::RemoveMember.new(event, bot).process
       end
     end

@@ -17,7 +17,7 @@ module PugBot
 
           if member
             member.destroy
-            "You have been successfully removed from the #{region}/#{pug_type} PUG."
+            "You have been successfully removed from the #{region} #{pug_type} PUG."
           else
             "You're not a part of that pug."
           end

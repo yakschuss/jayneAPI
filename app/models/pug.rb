@@ -1,7 +1,7 @@
 class Pug < ApplicationRecord
   PUG_TYPES = %w(
-    tryhard
-    mixed
+  highsr
+  mixedsr
   )
 
   REGIONS = %w(
