@@ -20,7 +20,7 @@ module PugBot
 
         return missing_arguments if missing_arguments?
 
-        pug = Pug.where(pug_type: pug_type, region: region).first
+        pug = Pug.find_by(id: id)
 
         if pug
           pug_member = pug.pug_members.where(discord_tag: discord_tag).first
@@ -28,12 +28,12 @@ module PugBot
           if pug_member
             pug_member.destroy
 
-            "You have removed #{discord_tag} from #{region} #{pug_type}."
+            "You have removed #{discord_tag} from PUG #{id}"
           else
-            "That member is not part of the #{region} #{pug_type}"
+            "That member is not part of PUG #{id}"
           end
         else
-          "There's no pug for that region/level, and thus no member for that PUG. Get it together."
+          "There's no pug with that ID, and thus no member for that PUG. Get it together."
         end
       end
 
@@ -45,12 +45,8 @@ module PugBot
         arguments[0]
       end
 
-      def region
-        arguments[1].upcase
-      end
-
-      def pug_type
-        arguments[2].downcase
+      def id
+        arguments[1]
       end
 
       def destroy_all
@@ -63,12 +59,12 @@ module PugBot
       end
 
       def missing_arguments
-        "You're missing a bunch of info. Check ?help for the proper format."
+        "You're missing an ID. Check ?help for the proper format."
       end
 
       def missing_arguments?
         return false if all
-        arguments.length < 3
+        arguments.length < 2
       end
 
       def role_ids

@@ -14,7 +14,7 @@ module PugBot
         return missing_arguments if missing_arguments?
 
 
-        pug = Pug.find_by(pug_type: pug_type, region: region)
+        pug = Pug.find_by(id: id)
 
         if pug
           channel_uuids = pug.channel_records.pluck(:channel_uuid)
@@ -28,9 +28,10 @@ module PugBot
           end
 
           pug.destroy
+
           "Pug successfully cleared."
         else
-          "Can't find a pug with that type/region combination. Check ?list-pugs for a list of pugs."
+          "Can't find a pug by with that ID. Check ?list-pugs for a list of pugs."
         end
       end
 
@@ -38,20 +39,16 @@ module PugBot
 
       attr_accessor :event, :bot
 
-      def region
-        arguments[0].upcase
-      end
-
-      def pug_type
-        arguments[1].downcase
+      def id
+        arguments[0]
       end
 
       def missing_arguments?
-        arguments.length < 2
+        arguments.length < 1
       end
 
       def missing_arguments
-        "You haven't specified a region or pug type. Please check the ?list and specify."
+        "You need to include the ID of the PUG you wish to delete. It's the number found on the voice channels."
       end
 
       def role_ids

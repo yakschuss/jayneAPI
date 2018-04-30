@@ -13,7 +13,7 @@ module PugBot
         return missing_arguments if missing_arguments?
 
         if pug.nil?
-          return "There's no pug for that region, and you're not in any pugs. What are you even doing here?"
+          return "There's no pug with that ID, and you're not in any pugs. What are you even doing here?"
         end
 
         members
@@ -26,11 +26,11 @@ module PugBot
           meta_data = pugs.map(&:meta_data).join("\n")
 
           """
-The current PUGs that are still being formed are for the following regions:
+Here is the PUG information you requested, MASTER:
 #{meta_data}
           """
         else
-          "There are no PUGs, currently."
+          "There are no PUGs, leave me alone."
         end
       end
 
@@ -38,17 +38,13 @@ The current PUGs that are still being formed are for the following regions:
 
       attr_accessor :event, :bot
 
-      def region
-        arguments[0]&.upcase
-      end
-
-      def pug_type
-        arguments[1]&.downcase
+      def id
+        arguments[0]
       end
 
       def get_recent_pug
-        if pug_type && region
-          Pug.where(region: region, pug_type: pug_type).first
+        if id && id.to_i.is_a?(Integer)
+          Pug.find_by(id: id)
         else
           PugMember.where(ping_string: "<@#{event.user.id}>").first&.pug
         end
@@ -69,14 +65,10 @@ The current PUGs that are still being formed are for the following regions:
       end
 
       def missing_arguments?
-        if !pug && arguments.length < 2
+        if !pug && arguments.length < 1
           true
-        elsif !pug && arguments.length == 2
-          false
-        elsif pug
-          false
         else
-          true
+          false
         end
       end
     end

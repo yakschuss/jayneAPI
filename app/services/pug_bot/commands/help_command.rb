@@ -48,11 +48,10 @@ Example: ?join YacoTaco#11402 NA MixedSR Captain
 ```
 The structure for the leave command is as follows:
 
-?leave Region PugType
+The ID can be found on the voice channel.
 
-If you leave any out, the pug you're trying to leave won't be found.
+?leave <ID>
 
-The order is important, and so is spelling!
 ```
         """
       end
@@ -74,7 +73,7 @@ Spelling is important, and so is order!
       def sub_request
         """
 ```
-Specify a region and a pug type to get the battlenet of a player who has registered for pugs.
+Specify a PUG ID to get the battlenet of a player who has registered for pugs.
 
 They'll receive a DM that you're looking to have them sub!
 
@@ -84,7 +83,7 @@ If you re-request, it'll take the next available PUG, but again, you should try 
 
 The format is as follows:
 
-?sub-request Region PugType
+?sub-request <ID>
 ```
         """
       end
@@ -94,11 +93,11 @@ The format is as follows:
         ```
 This will give you a current list of players in the PUG.
 
-If you specify a region and a type, it will get the unfinished PUG for that classification.
+If you specify an ID, it will get the unfinished PUG for that classification.
 
-If you don't specify AND you're in a PUG, it will get the list for the PUG you're in.
+If you don't specify AND you're in a PUG, it will get the list for the most recent PUG you're in.
 
-?list-members [optional] Region PugType
+?list-members [optional] <ID>
 ```
         """
       end
@@ -122,10 +121,10 @@ Available Commands:
 All commands must be prefixed by #{PugBot::PREFIX}
 
 join <BattleNet> <Region> <PugType> <Captain>[optional] \n
-leave <Region> <PugType>\n
+leave <ID> \n
 sub <BattleNet> <Region> <PugType>\n
-sub-request <Region> <PugType>\n
-list-members [optional] <Region> <PugType>\n
+sub-request <ID> \n
+list-members [optional] <ID>\n
 list-pugs \n
 remove \n
 clear-pug \n
@@ -143,9 +142,9 @@ This command is usable by PUG staff and Mods only.
 
 It forcibly removes a member of a pug from the registration, if they're afk or banned from joining PUGs.
 
-If you replace Region and PugType with the word 'all' - it will remove all of the selected user's registrations.
+If you replace the ID with the word 'all' - it will remove all of the selected user's registrations.
 
-?remove DiscordTag [optional]|all] Region PugType 
+?remove DiscordTag [optional]|all] <ID>
 ```
         """
       end
@@ -155,9 +154,12 @@ If you replace Region and PugType with the word 'all' - it will remove all of th
         ```
 This command is usable by PUG staff and Mods only.
 
-It disbands a PUG grouping and removes the registrations.
+The ID needed to do this command is the number on the voice channels. Please precise, as this removes all records.
 
-?clear-pug Region PugType
+It disbands a PUG grouping and removes the registrations.
+It also cleans up the voice channels created for the PUG.
+
+?clear-pug <ID>
 ```
         """
       end

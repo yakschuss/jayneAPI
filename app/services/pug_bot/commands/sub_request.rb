@@ -12,7 +12,11 @@ module PugBot
       def process
         remove_old_subs
 
-        if sub
+        if id.nil?
+          return "Ya'll need to give me an ID so I can get you a sub."
+        end
+
+        if sub && pug
           channel = bot.pm_channel(sub.discord_id)
           bot.send_message(channel, sub_ping)
           battlenet = sub.battlenet
@@ -20,29 +24,23 @@ module PugBot
 
           "<@#{event.user.id}>, The battlenet for the sub is #{battlenet}."
         else
-          "There are no subs registered. Sucks to be you!"
+          "Either there are no subs registered, or there's no PUG with the ID you gave me. Sucks to be you!"
         end
       end
 
       private
 
-      def region
-        arguments[0].upcase
-      end
-
-      def pug_type
-        arguments[1].downcase
+      def id
+        arguments[0]
       end
 
       def pug
-        Pug.unfilled.where(
-          pug_type: pug_type, region: region
-        ).first
+        @pug ||= Pug.find_by(id: id)
       end
 
       def sub
         @sub ||= PugSub.where("pug_subs.expiration_time > ?", Time.current).
-          where(region: region, pug_type: pug_type).order(created_at: :asc).first
+          where(region: pug.region, pug_type: pug.pug_type).order(created_at: :asc).first
       end
 
       def remove_old_subs
@@ -54,7 +52,7 @@ module PugBot
       end
 
       def sub_ping
-        "#{sub.ping_string}, You've been selected to be a sub for #{region} #{pug_type}. Please report to the #{pug.blue_channel.channel_name}, look for #{event.user.username}."
+        "#{sub.ping_string}, You've been selected to be a sub for #{pug.region} #{pug.pug_type}. Please report to the #{pug.blue_channel.channel_name}, look for #{event.user.username}."
       end
 
       attr_accessor :event, :bot

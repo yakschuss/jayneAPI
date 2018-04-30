@@ -39,7 +39,7 @@ module PugBot
       end
 
       def user_response
-        "#{ping_string}, You've been added to the #{pug.region} #{pug.pug_type} PUG successfully. The total number of members so far is: #{pug.pug_members.count}/12. The total number of captains so far is #{pug.captains.count}/2. When the pug is full, everyone will be notified."
+        "#{ping_string}, You've been added to the #{pug.region} #{pug.pug_type} PUG successfully. The ID of your PUG is #{pug.id}. Please remember it, as it's the identifier for which group you're a part of. The total number of members so far is: #{pug.pug_members.count}/12. The total number of captains so far is #{pug.captains.count}/2. When the pug is full, everyone will be notified."
       end
 
       def missing_arguments?

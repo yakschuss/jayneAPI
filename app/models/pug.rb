@@ -49,7 +49,7 @@ class Pug < ApplicationRecord
   end
 
   def meta_data
-    "#{region} #{pug_type} - #{member_count}"
+    "ID:#{id} - #{region} #{pug_type} - #{member_count} members"
   end
 
   def pug_ping
