@@ -13,7 +13,6 @@ module PugBot
         return disallowed if not_allowed?
         return missing_arguments if missing_arguments?
 
-
         pug = Pug.find_by(id: id)
 
         if pug

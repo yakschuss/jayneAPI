@@ -22,7 +22,7 @@ module PugBot
       def pugs
         pugs = Pug.all
 
-        if pugs
+        if !pugs.empty?
           meta_data = pugs.map(&:meta_data).join("\n")
 
           """
