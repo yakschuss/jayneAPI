@@ -13,9 +13,20 @@ module PugBot
         return disallowed if not_allowed?
         return missing_arguments if missing_arguments?
 
+
         pug = Pug.find_by(pug_type: pug_type, region: region)
 
         if pug
+          channel_uuids = pug.channel_records.pluck(:channel_uuid)
+
+          channels = event.server.voice_channels.select do |channel|
+            channel_uuids.include?(channel.id.to_s)
+          end
+
+          channels.each do |channel|
+            channel.delete
+          end
+
           pug.destroy
           "Pug successfully cleared."
         else
