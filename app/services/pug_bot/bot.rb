@@ -21,6 +21,7 @@ module PugBot
       list_members_command
       list_pugs_command
       remove_member_command
+      clear_pug_command
       help_command
     end
 
@@ -76,6 +77,12 @@ module PugBot
     def remove_member_command
       bot.command(:"remove-member") do |event|
         Commands::RemoveMember.new(event, bot).process
+      end
+    end
+
+    def clear_pug_command
+      bot.command(:"clear-pug") do |event|
+        Commands::ClearPug.new(event, bot).process
       end
     end
 
