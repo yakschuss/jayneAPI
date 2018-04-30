@@ -102,7 +102,7 @@ def region
       end
 
       def respond
-        bot.send_message(440249322156851221, user_response)
+        bot.send_message(event.user.channel.id, user_response)
       end
 
       def handle_full_pug
