@@ -1,6 +1,9 @@
 module PugBot
   module Commands
     class ClearPug
+
+      include PugBot::Arguments
+
       def initialize(event, bot)
         @event = event
         @bot = bot
