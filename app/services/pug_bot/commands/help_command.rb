@@ -120,6 +120,8 @@ This will give you a current list of all the PUGs that are currently not fully r
        ```
 Available Commands:
 
+All commands must be prefixed by #{PugBot::PREFIX}
+
 join BattleNet Region PugType Captain[optional] \n
 leave Region PugType\n
 sub BattleNet Region PugType\n
@@ -127,6 +129,7 @@ sub-request Region PugType\n
 list-members [optional] Region PugType\n
 list-pugs \n
 remove-member \n
+clear-pug \n
 
 PugTypes: #{Pug::PUG_TYPES.join(", ")}
 Regions: #{Pug::REGIONS.join(", ")}
@@ -144,6 +147,18 @@ It forcibly removes a member of a pug from the registration, if they're afk or b
 If you replace Region and PugType with the word 'all' - it will remove all of the selected user's registrations.
 
 ?remove-member DiscordTag [optional]|all] Region PugType 
+```
+        """
+      end
+
+      def clear_pug
+        """
+        ```
+This command is usable by PUG staff and Mods only.
+
+It disbands a PUG grouping and removes the registrations.
+
+?clear-pug Region PugType
 ```
         """
       end
