@@ -24,12 +24,20 @@ module PugBot
         end
       end
 
+      private
+
       def region
         arguments[0].upcase
       end
 
       def pug_type
         arguments[1].downcase
+      end
+
+      def pug
+        Pug.unfilled.where(
+          pug_type: pug_type, region: region
+        ).first
       end
 
       def sub
@@ -46,10 +54,8 @@ module PugBot
       end
 
       def sub_ping
-        "#{sub.ping_string}, You've been selected to be a sub for #{region} #{pug_type}. Please report to the #{region} #{pug_type} voice channel with #{event.user.username} in it."
+        "#{sub.ping_string}, You've been selected to be a sub for #{region} #{pug_type}. Please report to the #{pug.blue_channel.channel_name}, look for #{event.user.username}."
       end
-
-      private
 
       attr_accessor :event, :bot
     end

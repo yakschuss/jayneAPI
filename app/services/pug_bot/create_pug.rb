@@ -26,7 +26,9 @@ module PugBot
     attr_accessor :attributes, :event
 
     def get_unfilled_pug
-      Pug.joins(:pug_members).select("pugs.*").where(pug_type: attributes[:pug_type], region: attributes[:region]).group("pugs.id").having("count(pug_members.id) < 12").first
+      Pug.unfilled.
+        where(pug_type: attributes[:pug_type], region: attributes[:region]).
+        first
     end
 
     def create_pug

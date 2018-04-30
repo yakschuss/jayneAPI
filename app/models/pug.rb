@@ -8,10 +8,10 @@ class Pug < ApplicationRecord
    EU
    NA
    OCE
-   PTR
-  )
+   PTR)
 
   has_many :pug_members, dependent: :destroy
+  has_many :channel_records, dependent: :destroy
 
 
   validates :pug_type, inclusion: { in: PUG_TYPES }
@@ -19,6 +19,17 @@ class Pug < ApplicationRecord
 
   def full?
     pug_members.count == 12
+  end
+
+  def self.unfilled
+      joins(:pug_members).
+        select("pugs.*").
+        group("pugs.id").
+        having("count(pug_members.id) < 12")
+  end
+
+  def blue_channel
+    channel_records.where("channel_records.channel_name LIKE ?", "%-Blue").first
   end
 
   def needs_captain?
@@ -43,9 +54,11 @@ class Pug < ApplicationRecord
 
   def pug_ping
     """
-You are being pinged to play in a #{pug_type} PUG. Please report to the nearest open blue #{pug_type} voice channel. #{captain_string}
+You are being pinged to play in a #{pug_type} PUG. Please report to #{blue_channel.channel_name}.\n
 
-#{captains.first} please create an invite only custom game with the competitive preset and begin inviting players once they confirm they are in-game. If someone does not confirm they are here in the next two minutes, go to #pug-general and type p!sub-request to replace them.
+#{captain_string}
+
+#{captains.first} please create an invite only custom game with the competitive preset and begin inviting players once they confirm they are in-game. If someone does not confirm they are here in the next two minutes, go to #pug-general and type ?sub-request to replace them.
 
 #{member_info}
     """
