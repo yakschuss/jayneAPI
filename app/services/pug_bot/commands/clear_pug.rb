@@ -16,21 +16,18 @@ module PugBot
         pug = Pug.find_by(id: id)
 
         if pug
-          channel_uuids = pug.channel_records.pluck(:channel_uuid)
-
-          channels = event.server.voice_channels.select do |channel|
-            channel_uuids.include?(channel.id.to_s)
-          end
-
-          channels.each do |channel|
-            channel.delete
-          end
-
-          pug.destroy
+          remove_pug(id)
 
           "Pug successfully cleared."
+        elsif old?
+          interval = hours.nil? ? 1.day : hours.to_i.hours
+
+          Pug.where("created_at < ?", Time.current - interval).each do |pug|
+            remove_pug(pug.id)
+          end
+          "Pugs successfully cleared."
         else
-          "Can't find a pug by with that ID. Check ?list-pugs for a list of pugs."
+          "Can't find pugs. Check ?list-pugs for a list of pugs."
         end
       end
 
@@ -40,6 +37,24 @@ module PugBot
 
       def id
         arguments[0]
+      end
+
+      def hours
+        arguments[1]
+      end
+
+      def remove_pug(id)
+        channel_uuids = pug.channel_records.pluck(:channel_uuid)
+
+        channels = event.server.voice_channels.select do |channel|
+          channel_uuids.include?(channel.id.to_s)
+        end
+
+        channels.each do |channel|
+          channel.delete
+        end
+
+        pug.destroy
       end
 
       def missing_arguments?
@@ -64,6 +79,10 @@ module PugBot
 
       def not_allowed?
         (role_ids & user_roles).empty?
+      end
+
+      def old?
+        id == "old"
       end
 
       def disallowed

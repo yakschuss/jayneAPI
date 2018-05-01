@@ -159,7 +159,9 @@ The ID needed to do this command is the number on the voice channels. Please pre
 It disbands a PUG grouping and removes the registrations.
 It also cleans up the voice channels created for the PUG.
 
-?clear-pug <ID>
+If you type 'old' and then a number, it will remove any pugs from the last <hours>. If you type 'old' and leave off hours, it will default to twenty four hours.
+
+?clear-pug <ID> [optional| 'old' <hours>]
 ```
         """
       end
