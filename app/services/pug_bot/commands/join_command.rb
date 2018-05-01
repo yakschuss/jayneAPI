@@ -82,7 +82,7 @@ def region
       end
 
       def invalid_region_response
-        "What region is that? WHERE THE HELL ARE YOU FROM?!"
+        "What region is that?"
       end
 
       def invalid_region?
@@ -90,7 +90,7 @@ def region
       end
 
       def duplicate_member_response
-        "You're already a member of that PUG. Give someone else a shot, alright?"
+        "You're already a member of that PUG."
       end
 
       def duplicate_member?

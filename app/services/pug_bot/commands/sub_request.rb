@@ -24,7 +24,7 @@ module PugBot
 
           "<@#{event.user.id}>, The battlenet for the sub is #{battlenet}."
         else
-          "Either there are no subs registered, or there's no PUG with the ID you gave me. Sucks to be you!"
+          "Either there are no subs registered, or there's no PUG with the ID you gave me."
         end
       end
 

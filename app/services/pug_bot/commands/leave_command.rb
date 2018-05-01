@@ -17,12 +17,12 @@ module PugBot
 
           if member
             member.destroy
-            "You have been successfully removed from PUG #{id}. OKAY!?"
+            "You have been successfully removed from PUG #{id}."
           else
-            "You're not a part of that pug. GOD!"
+            "You're not a part of that pug."
           end
         else
-          "Check the ID, there might not be a pug going on or you might've spelled something incorrectly. GOD!"
+          "Check the ID, there might not be a pug going on or you might've spelled something incorrectly."
         end
       end
 

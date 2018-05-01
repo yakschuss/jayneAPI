@@ -26,11 +26,11 @@ module PugBot
           meta_data = pugs.map(&:meta_data).join("\n")
 
           """
-Here is the PUG information you requested, MASTER:
+Here is the PUG information you requested:
 #{meta_data}
           """
         else
-          "There are no PUGs, leave me alone."
+          "There are no PUGs currently."
         end
       end
 

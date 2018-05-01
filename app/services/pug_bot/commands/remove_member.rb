@@ -33,7 +33,7 @@ module PugBot
             "That member is not part of PUG #{id}"
           end
         else
-          "There's no pug with that ID, and thus no member for that PUG. Get it together."
+          "There's no pug with that ID"
         end
       end
 
