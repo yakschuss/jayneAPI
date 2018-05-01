@@ -16,14 +16,14 @@ module PugBot
         pug = Pug.find_by(id: id)
 
         if pug
-          remove_pug(id)
+          remove_pug(pug)
 
           "Pug successfully cleared."
         elsif old?
           interval = hours.nil? ? 1.day : hours.to_i.hours
 
           Pug.where("created_at < ?", Time.current - interval).each do |pug|
-            remove_pug(pug.id)
+            remove_pug(pug)
           end
           "Pugs successfully cleared."
         else
@@ -43,7 +43,7 @@ module PugBot
         arguments[1]
       end
 
-      def remove_pug(id)
+      def remove_pug(pug)
         channel_uuids = pug.channel_records.pluck(:channel_uuid)
 
         channels = event.server.voice_channels.select do |channel|
