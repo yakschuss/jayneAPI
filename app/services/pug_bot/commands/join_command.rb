@@ -106,7 +106,12 @@ def region
       end
 
       def handle_full_pug
+        remove_other_registrations
         bot.send_message(440249322156851221, pug.pug_ping)
+      end
+
+      def remove_other_registrations
+        PugMember.where(ping_string: ping_string).where.not(pug_id: pug.id).destroy_all
       end
     end
   end
