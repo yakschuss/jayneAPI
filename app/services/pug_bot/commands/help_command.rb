@@ -37,7 +37,7 @@ You will need your Battlenet capitalized and spelled correctly, followed by the 
 
 ?join <Battlenet> <Region> <PugType> <Captain>[optional]
 
-Example: ?join YacoTaco#11402 NA MixedSR Captain
+Example: ?join YacoTaco#114 NA MixedSR Captain
 
           ```
         """
