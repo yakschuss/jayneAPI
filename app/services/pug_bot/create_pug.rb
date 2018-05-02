@@ -52,7 +52,8 @@ module PugBot
         event.server.create_channel(
           name,
           2,
-          parent: 440427531183587338
+          parent: 440427531183587338,
+          user_limit: 30,
         )
       end
     end
