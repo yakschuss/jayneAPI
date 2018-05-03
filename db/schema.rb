@@ -10,44 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430184012) do
+ActiveRecord::Schema.define(version: 0) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "channel_records", force: :cascade do |t|
-    t.integer "pug_id"
-    t.string "channel_uuid"
-    t.string "channel_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pug_members", force: :cascade do |t|
-    t.integer "pug_id"
-    t.string "ping_string"
-    t.string "discord_tag"
-    t.string "battlenet"
-    t.boolean "captain"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pug_subs", force: :cascade do |t|
-    t.datetime "expiration_time"
-    t.string "pug_type"
-    t.string "region"
-    t.string "battlenet"
-    t.string "ping_string"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pugs", force: :cascade do |t|
-    t.string "pug_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "region"
-  end
 
 end

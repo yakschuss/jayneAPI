@@ -1,2 +1,0 @@
-class ChannelRecord < ApplicationRecord
-end

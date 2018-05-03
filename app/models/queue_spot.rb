@@ -1,0 +1,2 @@
+class QueueSpot < ApplicationRecord
+end
