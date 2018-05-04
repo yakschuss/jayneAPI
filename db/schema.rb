@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20180504195056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pug_members", force: :cascade do |t|
+    t.string "discord_id"
+    t.string "discord_tag"
+    t.string "battlenet"
+    t.boolean "captain"
+    t.string "peak_sr"
+    t.string "region"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "queue_spots", force: :cascade do |t|
+    t.string "discord_id"
+    t.string "peak_sr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "captain"
+    t.string "region"
+  end
 
 end

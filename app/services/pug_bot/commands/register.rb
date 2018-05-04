@@ -1,6 +1,6 @@
 module PugBot
   module Commands
-    class RegisterCommand
+    class Register
 
       include PugBot::Arguments
 
@@ -11,16 +11,17 @@ module PugBot
 
       def process
         return already_registered if member
+        return missing_arguments_response if missing_arguments?
 
         PugMember.create!(
           discord_id: event.user.id,
-          dicord_tag: "#{event.user.username}##{event.user.discriminator}",
+          discord_tag: "#{event.user.username}##{event.user.discriminator}",
           battlenet: battlenet,
           peak_sr: peak_sr,
           region: region,
         )
 
-        "Succesfully registed. Welcome!"
+        "Succesfully registered. Welcome!"
       end
 
       private
@@ -36,14 +37,24 @@ module PugBot
       end
 
       def battlenet
+        arguments[0]
       end
 
       def peak_sr
+        arguments[1]
       end
 
       def region
+        arguments[2]
       end
 
+      def missing_arguments?
+        (arguments.length <= 3 && arguments.last == "Captain") || arguments.length < 3
+      end
+
+      def missing_arguments_response
+        "You're missing some information. Check the format and try again."
+      end
 
     end
   end

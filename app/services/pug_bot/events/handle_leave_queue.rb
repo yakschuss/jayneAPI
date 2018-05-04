@@ -8,6 +8,12 @@ module PugBot
 
       def process
         puts "Leaving: #{event.user.id}"
+
+        spot = QueueSpot.find_by(discord_id: event.user.id)
+
+        if spot
+          spot.destroy
+        end
       end
 
       private

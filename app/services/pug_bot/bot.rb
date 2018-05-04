@@ -15,6 +15,7 @@ module PugBot
     private
 
     def define_commands
+      register_command
     end
 
     def define_event_handlers
@@ -22,20 +23,20 @@ module PugBot
       leave_pug_queue_event
     end
 
-    def clear_pug_command
-      bot.command(:"") do |event|
-        Commands::ClearPug.new(event, bot).process
+    def register_command
+      bot.command(:"register") do |event|
+        Commands::Register.new(event, bot).process
       end
     end
 
     def join_pug_queue_event
-      bot.voice_state_update(channel: 394223728864657408) do |event|
+      bot.voice_state_update(channel: 442081250291744788) do |event|
         Events::HandleJoinQueue.new(event, bot).process
       end
     end
 
     def leave_pug_queue_event
-      bot.voice_state_update(channel: nil, old_channel: 394223728864657408) do |event|
+      bot.voice_state_update(channel: nil, old_channel: 442081250291744788) do |event|
         Events::HandleLeaveQueue.new(event, bot).process
       end
     end
