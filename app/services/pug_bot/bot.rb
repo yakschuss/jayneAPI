@@ -18,6 +18,7 @@ module PugBot
       register_command
       sub_command
       region_command
+      battlenet_command
       sr_command
       clear_lobbies_command
       help_command
