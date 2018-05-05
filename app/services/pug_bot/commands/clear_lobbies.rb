@@ -8,7 +8,13 @@ module PugBot
       end
 
       def process
+        channels = event.server.voice_channels.select do |channel|
+          channel.parent.id == 442164165470060555 && channel.users.count == 0
+        end
 
+        channels.map(&:delete)
+
+        "Pug lobbies successfully cleared."
       end
 
       private

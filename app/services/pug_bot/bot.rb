@@ -19,7 +19,7 @@ module PugBot
       sub_command
       region_command
       sr_command
-      clear_pugs_command
+      clear_lobbies_command
       help_command
     end
 
@@ -52,7 +52,7 @@ module PugBot
       end
     end
 
-    def clear_pugs_command
+    def clear_lobbies_command
       bot.command(:"clear-lobbies") do |event|
         Commands::ClearLobbies.new(event, bot).process
       end

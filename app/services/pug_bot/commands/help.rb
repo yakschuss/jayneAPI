@@ -31,6 +31,7 @@ module PugBot
 
       def register
         """
+        ```
 This command pulls you into our system and allows you to be eligible for a spot to play in PUGS.
 
 In order to register, you'll need to provide your battlenet, your peak SR from the last 3 seasons, the region you wish to play in ( this can be changed later! ) and whether you want to be a captain or not.
@@ -40,11 +41,13 @@ The format for the command is as follows:
 ?register YacoTaco#112 2953 NA Captain
 
 Please be sure to speel everythign correctly!
+```
 """
       end
 
       def sub
         """
+        ```
 This command allows you to claim a single member of the waiting queue.
 
 It selects the person waiting the longest within the SR range that is designated.
@@ -56,11 +59,13 @@ Please be sure to request the sub while in shorthanded team's voice channel.
 The format for the command is as follows:
 
 ?sub NA 3000
+```
         """
       end
 
       def change_region
         """
+        ```
 Allows you to change your registered region.
 
 The format for the command is as follows:
@@ -68,25 +73,30 @@ The format for the command is as follows:
 ?change-region REGION
 
 Region is what you wish to change TO.
+```
         """
 
       end
 
       def change_sr
         """
+        ```
 Allows you to change your registered peak SR, in the event that you managed to climb a little bit!
 
 The format for the command is as follows:
 
 ?change-sr SR
+```
         """
       end
 
       def clear_lobbies
         """ 
+        ```
 This command is usable by PUG Staff and Moderators only. It is a cleanup command to remove any unused lobby voice channels.
 
 ?clear-lobbies
+```
         """
       end
 
