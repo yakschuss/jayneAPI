@@ -16,6 +16,7 @@ module PugBot
 
         if member
           member.update_attributes(peak_sr: first_arg)
+          "You've changed your peak SR to: #{first_arg}"
         else
           "You're not registered yet. Why don't you go register with the SR you're trying to tell me all about?"
         end
@@ -28,6 +29,7 @@ module PugBot
 
         if member
           member.update_attributes(region: first_arg)
+          "You've changed your region to: #{first_arg}"
         else
           "You're not registered yet. Why don't you go register with the region you're trying to tell me all about?"
         end
