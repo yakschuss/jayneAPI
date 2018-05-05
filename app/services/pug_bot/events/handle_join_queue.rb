@@ -50,15 +50,15 @@ module PugBot
 
       def get_lobby_together
         lobby = QueueSpot.gm_game(member.region)
-        @channel_name = "GM+#{member.id}"
+        @channel_name = "GM+ #{member.id}"
         return lobby if lobby.length == 12
 
         lobby = QueueSpot.diamond_plus_game(member.region)
-        @channel_name = "Diamond+#{member.id}"
+        @channel_name = "Diamond+ #{member.id}"
         return lobby if lobby.length == 12
 
         lobby = QueueSpot.mixed_sr_game(member.region)
-        @channel_name = "MixedSR+#{member.id}"
+        @channel_name = "MixedSR #{member.id}"
         return lobby if lobby.length == 12
 
         return []
