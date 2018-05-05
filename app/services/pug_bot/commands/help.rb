@@ -112,6 +112,14 @@ This command is usable by PUG Staff and Moderators only. It is a cleanup command
         """
       end
 
+      def waiting
+        """
+        ```
+        Just type it.
+        ```
+        """
+      end
+
       def all
         """
 Here is a list of the available commands for pug-bot:
@@ -122,6 +130,7 @@ Here is a list of the available commands for pug-bot:
 ?change-region <REGION>
 ?change-sr <SR>
 ?change-bnet <BATTLENET>
+?waiting
 ?clear-lobbies```
         """
       end

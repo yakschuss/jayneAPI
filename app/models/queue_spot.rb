@@ -1,4 +1,7 @@
 class QueueSpot < ApplicationRecord
+
+  belongs_to :pug_member
+
   class << self
     def gm_game(region)
       where(region: region).where("queue_spots.peak_sr >= '3900'").first_come_first_serve.limit(12)

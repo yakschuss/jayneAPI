@@ -1,4 +1,6 @@
 class PugMember < ApplicationRecord
+  has_many :queue_spots
+
   def ping_string
     "<@#{discord_id}>"
   end

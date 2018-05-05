@@ -71,6 +71,12 @@ module PugBot
       end
     end
 
+    def waiting_command
+      bot.command(:"waiting") do |event|
+        Commands::Waiting.new(event, bot).process
+      end
+    end
+
     def join_pug_queue_event
       bot.voice_state_update(channel: 442081250291744788) do |event|
         Events::HandleJoinQueue.new(event, bot).process
