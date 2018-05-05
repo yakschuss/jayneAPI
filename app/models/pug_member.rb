@@ -8,4 +8,8 @@ class PugMember < ApplicationRecord
   def captain_string
     captain? ? "Captain" : ""
   end
+
+  def info
+    "#{discord_tag} --- #{battlenet}, #{region}, #{peak_sr}"
+  end
 end

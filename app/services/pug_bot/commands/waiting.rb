@@ -10,9 +10,11 @@ module PugBot
       end
 
       def process
-        QueueSpot.all.map do |spot|
-          spot&.pug_member&.discord_tag
-        end.compact.join("\n")
+        members = QueueSpot.all.map do |spot|
+          spot.pug_member
+        end
+
+        members.map(&:info).join("\n")
       end
     end
   end
