@@ -90,6 +90,18 @@ The format for the command is as follows:
         """
       end
 
+      def change_bnet
+        """
+        ```
+Allows you to change your registered battlenet, in the event that you're playing on a smurf.
+
+The format for the command is as follows:
+
+?change-sr SR
+```
+        """
+      end
+
       def clear_lobbies
         """ 
         ```

@@ -52,6 +52,12 @@ module PugBot
       end
     end
 
+    def battlenet_command
+      bot.command(:"change-bnet") do |event|
+        Commands::MemberInfo.new(event, bot).battlenet_change
+      end
+    end
+
     def clear_lobbies_command
       bot.command(:"clear-lobbies") do |event|
         Commands::ClearLobbies.new(event, bot).process

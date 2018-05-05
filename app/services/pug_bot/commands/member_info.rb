@@ -28,8 +28,21 @@ module PugBot
         member = PugMember.find_by(discord_id: event.user.id)
 
         if member
-          member.update_attributes(region: first_arg)
-          "You've changed your region to: #{first_arg}"
+          member.update_attributes(region: first_arg.upcase)
+          "You've changed your region to: #{first_arg.upcase}"
+        else
+          "You're not registered yet. Why don't you go register with the region you're trying to tell me all about?"
+        end
+      end
+
+      def battlenet_change
+        return missing_first_arg if missing_first_arg?
+
+        member = PugMember.find_by(discord_id: event.user.id)
+
+        if member
+          member.update_attributes(battlenet: first_arg)
+          "You've changed your battlenet to: #{first_arg}"
         else
           "You're not registered yet. Why don't you go register with the region you're trying to tell me all about?"
         end

@@ -46,7 +46,7 @@ module PugBot
       end
 
       def region
-        arguments[2]
+        arguments[2].upcase
       end
 
       def captain
