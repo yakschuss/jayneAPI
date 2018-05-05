@@ -11,8 +11,8 @@ module PugBot
 
       def process
         return no_voice_channel if user_not_in_voice?
+        return missing_arguments if missing_arguments?
         return invalid_region if invalid_region?
-        return missing_sr if missing_sr?
 
         if @sub
           move_sub
@@ -67,11 +67,11 @@ module PugBot
       end
 
       def missing_sr
-        "Hey, you need to specify an SR around where the sub should be."
+        "You're missing a few arguments. Check ?help to see the format."
       end
 
-      def missing_sr?
-        sr.nil?
+      def missing_arguments?
+        arguments.length < 2
       end
     end
   end
