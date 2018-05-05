@@ -31,7 +31,13 @@ module PugBot
       end
 
       def create_queue_record
-        QueueSpot.find_or_create_by!(discord_id: event.user.id, peak_sr: member.peak_sr, region: member.region, captain: member.captain)
+        QueueSpot.find_or_create_by!(
+          discord_id: event.user.id,
+          peak_sr: member.peak_sr,
+          region: member.region,
+          captain: member.captain,
+          member_id: member.id,
+        )
       end
 
       def check_full_grouping
