@@ -78,12 +78,12 @@ module PugBot
       end
 
       def get_lobby_members(pug_lobby)
-        PugMembers.where(discord_id: pug_lobby.pluck(:discord_id))
+        PugMember.where(discord_id: pug_lobby.pluck(:discord_id))
       end
 
       def move_lobby_to_voice_channels(channels, lobby_members)
         lobby_members.each do |m|
-          event.server.move(channels.first, m.discord_id)
+          event.server.move(m.discord_id, channels.first)
         end
       end
 
@@ -104,7 +104,7 @@ The members below are present in the voice channel.
       end
 
       def remove_queue_spot(pug_lobby)
-        pug_lobby.delete_all
+        pug_lobby.map(&:destroy)
       end
 
       def member_info(members)
