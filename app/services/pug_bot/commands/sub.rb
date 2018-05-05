@@ -66,7 +66,7 @@ module PugBot
         !%(NA EU OCE PTR).include?(region)
       end
 
-      def missing_sr
+      def missing_arguments
         "You're missing a few arguments. Check ?help to see the format."
       end
 
