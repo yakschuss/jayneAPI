@@ -109,9 +109,7 @@ Here is a list of the available commands for pug-bot:
 ?sub <REGION> <SR>
 ?change-region <REGION>
 ?change-sr <SR>
-?clear-lobbies
-
-        ```
+?clear-lobbies```
         """
       end
 
