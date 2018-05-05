@@ -36,7 +36,7 @@ module PugBot
           peak_sr: member.peak_sr,
           region: member.region,
           captain: member.captain,
-          member_id: member.id,
+          pug_member_id: member.id,
         )
       end
 

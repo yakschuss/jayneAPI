@@ -22,6 +22,7 @@ module PugBot
       sr_command
       clear_lobbies_command
       help_command
+      waiting_command
     end
 
     def define_event_handlers

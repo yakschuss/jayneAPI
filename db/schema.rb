@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20180505194341) do
     t.datetime "updated_at", null: false
     t.boolean "captain"
     t.string "region"
-    t.integer "member_id"
+    t.integer "pug_member_id"
   end
 
 end
