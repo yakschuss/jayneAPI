@@ -95,7 +95,7 @@ module PugBot
         """
 You are being pinged to play in #{@channel_name} PUG. Please report to #{@channel_name} Blue.\n
 
-#{@captains.map(&:ping_string).join(" and ")}, You are this lobby's captains. Please create an invite only custom game with the competitive preset and begin inviting players once they confirm they are in-game.
+#{@captains.map(&:ping_string).join(" and ")}, you are this lobby's captains. #{@captains.first.discord_tag}, please create an invite only custom game with the competitive preset and begin inviting players once they confirm they are in-game.
 
 The members below are present in the voice channel.
 
