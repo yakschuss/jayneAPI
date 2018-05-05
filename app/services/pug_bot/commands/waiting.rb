@@ -14,7 +14,11 @@ module PugBot
           spot.pug_member
         end
 
-        members.map(&:info).join("\n")
+        if members
+          members.map(&:info).join("\n")
+        else
+          "No one waiting. If you're in the queue, but it thinks you're not, exit and rejoin."
+        end
       end
     end
   end
