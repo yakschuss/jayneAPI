@@ -10,83 +10,68 @@ module PugBot
       end
 
       def process
-        return missing_args     if missing_args?
-        return invalid_region   if invalid_region?
-        return invalid_pug_type if invalid_pug_type?
-        return already_sub      if already_sub?
+        return no_voice_channel if user_not_in_voice?
+        return invalid_region if invalid_region?
+        return missing_sr if missing_sr?
 
-        create_sub
+        if @sub
+          move_sub
 
-        response
+          "Sub found, enjoy the game."
+        else
+          "There are no available subs for that SR range."
+        end
       end
 
       private
-attr_accessor :event, :bot
 
-      def create_sub
-        PugSub.create!(
-          battlenet: battlenet,
-          region: region,
-          pug_type: pug_type,
-          expiration_time: Time.current + 2.hours,
-          ping_string: ping_string,
-        )
+      attr_accessor :event, :bot
+
+      def sub
+        @sub ||= QueueSpot.where(region: region, peak_sr: sr_range).order(created_at: :asc).first
       end
 
-      def battlenet
-        arguments[0]
+      def sr_range
+        lower_bound = sr.to_i - 500
+        upper_bound = sr.to_i + 500
+
+        lower_bound..upper_bound
       end
 
       def region
-        arguments[1].upcase
+        arguments[0]
       end
 
-      def pug_type
-        arguments[2].downcase
+      def sr
+        arguments[1]
       end
 
-      def ping_string
-        "<@#{event.user.id}>"
+      def move_sub
+        event.server.move(@sub.discord_id, event.user.voice_channel)
       end
 
-      def missing_args
-        "You're missing some info there, bud"
+      def no_voice_channel
+        "I don't know what voice channel you're in! Go into your lobby and try again."
       end
 
-      def missing_args?
-        arguments.length < 3
+      def user_not_in_voice?
+        event.user.voice_channel.nil?
       end
 
       def invalid_region
-        "That region isn't supported by our PUG system. Talk to the mods, I'm just a bot."
-      end
-
-      def invalid_pug_type
-        "That pug type doesn't exist. Talk to the mods, I'm just a bot."
-      end
-
-      def response
-        "#{ping_string}, You've been successfully added as a sub for a(n) #{region} #{pug_type} PUG. This registration is valid for two hours."
+        "I don't recognize that region. Try again?"
       end
 
       def invalid_region?
-        !Pug::REGIONS.include?(region)
+        !%(NA EU OCE PTR).include?(region)
       end
 
-      def invalid_pug_type?
-        !Pug::PUG_TYPES.include?(pug_type)
+      def missing_sr
+        "Hey, you need to specify an SR around where the sub should be."
       end
 
-      def invalid_length?
-        hours > 2
-      end
-
-      def already_sub
-        "You're already registered as a sub for that PUG type, take it easy - you'll get your chance."
-      end
-
-      def already_sub?
-        PugSub.where("pug_subs.expiration_time > ?", Time.current).where(ping_string: ping_string, pug_type: pug_type, region: region).exists?
+      def missing_sr?
+        sr.nil?
       end
     end
   end

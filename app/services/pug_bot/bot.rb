@@ -16,6 +16,11 @@ module PugBot
 
     def define_commands
       register_command
+      sub_command
+      region_command
+      sr_command
+      clear_pugs_command
+      help_command
     end
 
     def define_event_handlers
@@ -26,6 +31,36 @@ module PugBot
     def register_command
       bot.command(:"register") do |event|
         Commands::Register.new(event, bot).process
+      end
+    end
+
+    def sub_command
+      bot.command(:"sub") do |event|
+        Commands::Sub.new(event, bot).process
+      end
+    end
+
+    def region_command
+      bot.command(:"change-region") do |event|
+        Commands::MemberInfo.new(event, bot).region_change
+      end
+    end
+
+    def sr_command
+      bot.command(:"change-sr") do |event|
+        Commands::MemberInfo.new(event, bot).sr_change
+      end
+    end
+
+    def clear_pugs_command
+      bot.command(:"clear-lobbies") do |event|
+        Commands::ClearLobbies.new(event, bot).process
+      end
+    end
+
+    def help_command
+      bot.command(:"help") do |event|
+        Commands::Help.new(event, bot).process
       end
     end
 

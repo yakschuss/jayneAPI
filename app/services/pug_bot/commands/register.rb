@@ -19,9 +19,10 @@ module PugBot
           battlenet: battlenet,
           peak_sr: peak_sr,
           region: region,
+          captain: captain,
         )
 
-        "Succesfully registered. Welcome!"
+        "Successfully registered. Welcome!"
       end
 
       private
@@ -46,6 +47,10 @@ module PugBot
 
       def region
         arguments[2]
+      end
+
+      def captain
+        !!arguments[3]
       end
 
       def missing_arguments?
