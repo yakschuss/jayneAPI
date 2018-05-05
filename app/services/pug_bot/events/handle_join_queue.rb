@@ -39,11 +39,11 @@ module PugBot
 
         if !pug_lobby.empty?
           members = get_lobby_members(pug_lobby)
+          remove_queue_spot(pug_lobby)
           @captains = captains(members)
           channels = create_voice_channels
           move_lobby_to_voice_channels(channels, members)
           ping_lobby_members(members)
-          remove_queue_spot(pug_lobby)
         else
         end
       end
