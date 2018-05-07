@@ -45,7 +45,7 @@ module PugBot
       end
 
       def number?(num)
-        num.to_i.is_a?(Integer) || num.to_i != 0
+        num.to_i != 0 || num.to_i.is_a?(Integer)
       end
 
       def not_a_number
