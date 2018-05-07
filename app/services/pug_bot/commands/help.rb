@@ -130,6 +130,18 @@ This command is usable by PUG Staff and Moderators only. It is a cleanup command
         """
       end
 
+      def need
+        """
+        ```
+This command allows you to send a message to #pug-announcments, requesting a certain amount of players for an average SR.
+
+The format is as follows:
+
+?need <number of players> <region you're in> <avg sr>
+        ```
+        """
+      end
+
       def all
         """
 Here is a list of the available commands for pug-bot:
@@ -144,6 +156,7 @@ You can also type ?help <command> for more specific info.
 ?change-bnet <BATTLENET>
 ?waiting
 ?info
+?need <NUMBER> <REGION> <SR>
 ?clear-lobbies```
         """
       end
