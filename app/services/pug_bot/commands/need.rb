@@ -11,9 +11,9 @@ module PugBot
 
       def process
         return missing_args if missing_args?
-        return not_a_number unless number?(sr)
-        return not_an_sr unless number?(number)
+        return not_a_number unless number?(number)
         return not_a_region unless region?
+        return not_an_sr unless number?(sr)
 
         bot.send_message(442768393087483908, need_ping)
       end

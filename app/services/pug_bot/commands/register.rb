@@ -12,6 +12,7 @@ module PugBot
       def process
         return already_registered if member
         return missing_arguments_response if missing_arguments?
+        return not_a_region unless region?
 
         PugMember.create!(
           discord_id: event.user.id,
@@ -61,6 +62,13 @@ module PugBot
         "You're missing some information. Check the format and try again."
       end
 
+      def region?
+        %w(NA EU OCE PTR).include?(region)
+      end
+
+      def not_a_region
+        "That's not a region. C'mon, yo."
+      end
     end
   end
 end
