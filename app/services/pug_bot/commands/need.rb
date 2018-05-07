@@ -21,7 +21,7 @@ module PugBot
       attr_accessor :event, :bot
 
       def need_ping
-        "@ here, #{number} players are needed for a PUG for the #{region}, SR around #{sr}. Join PUG Queue if you're interested!"
+        "@here, #{number} players are needed for a PUG for the #{region}region, SR around #{sr}. Join PUG Queue if you're interested!"
       end
 
       def number
