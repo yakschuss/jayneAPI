@@ -45,11 +45,11 @@ module PugBot
       end
 
       def number?
-        number.to_i.is_a?(Integer) && number <= 12
+        number.to_i.is_a?(Integer) && number.to_i <= 12
       end
 
       def sr?
-        sr.to_i != 0 && ( sr >= 500 && sr <= 5000 )
+        sr == "any" || (sr.to_i != 0 && ( sr.to_i >= 500 && sr.to_i <= 5000 ))
       end
 
       def not_a_number
