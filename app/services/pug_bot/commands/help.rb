@@ -120,6 +120,14 @@ This command is usable by PUG Staff and Moderators only. It is a cleanup command
         """
       end
 
+      def info
+        """
+        ```
+        Just type it.
+        ```
+        """
+      end
+
       def all
         """
 Here is a list of the available commands for pug-bot:
@@ -131,6 +139,7 @@ Here is a list of the available commands for pug-bot:
 ?change-sr <SR>
 ?change-bnet <BATTLENET>
 ?waiting
+?info
 ?clear-lobbies```
         """
       end

@@ -23,6 +23,7 @@ module PugBot
       clear_lobbies_command
       help_command
       waiting_command
+      info_command
     end
 
     def define_event_handlers
@@ -75,6 +76,12 @@ module PugBot
     def waiting_command
       bot.command(:"waiting") do |event|
         Commands::Waiting.new(event, bot).process
+      end
+    end
+
+    def info_command
+      bot.command(:"info") do |event|
+        Commands::Info.new(event, bot).process
       end
     end
 
