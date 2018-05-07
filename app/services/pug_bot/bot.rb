@@ -24,6 +24,7 @@ module PugBot
       help_command
       waiting_command
       info_command
+      need_command
     end
 
     def define_event_handlers
@@ -82,6 +83,12 @@ module PugBot
     def info_command
       bot.command(:"info") do |event|
         Commands::Info.new(event, bot).process
+      end
+    end
+
+    def need_command
+      bot.command(:"need") do |event|
+        Commands::Need.new(event, bot).process
       end
     end
 

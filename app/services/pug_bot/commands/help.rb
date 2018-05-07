@@ -115,7 +115,7 @@ This command is usable by PUG Staff and Moderators only. It is a cleanup command
       def waiting
         """
         ```
-        Just type it.
+        This command will tell you who's waiting in the lobby to start a PUG. Sometimes the queue can miss that you joined, so leave and re-enter if that happens!
         ```
         """
       end
@@ -123,7 +123,9 @@ This command is usable by PUG Staff and Moderators only. It is a cleanup command
       def info
         """
         ```
-        Just type it.
+        This command gives you the registered info in our system.
+
+        If you leave any info out, it'll look for your specific info, but if you add the Discord tag, such as YourNameHerE#3242, it'll look for that person.
         ```
         """
       end
@@ -131,6 +133,8 @@ This command is usable by PUG Staff and Moderators only. It is a cleanup command
       def all
         """
 Here is a list of the available commands for pug-bot:
+
+You can also type ?help <command> for more specific info.
 
         ```
 ?register <BATTLENET> <PEAK SR> <REGION> <CAPTAIN(optional)>
