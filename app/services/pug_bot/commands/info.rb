@@ -16,6 +16,8 @@ module PugBot
           "You're not registered. Register and try again."
         end
       end
+
+      attr_accessor :event, :bot
     end
   end
 end
