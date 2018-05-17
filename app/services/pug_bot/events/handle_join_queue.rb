@@ -9,9 +9,12 @@ module PugBot
       def process
         puts "Entering: #{event.user.id}"
 
+        members = BalanceLobby.run!
+
         if registered?
-          create_queue_record
-          check_full_grouping
+          if twelve?
+            handle_full_lobby(members)
+          end
         else
           remove_from_channel
           ping_to_register
@@ -30,44 +33,15 @@ module PugBot
         !!member
       end
 
-      def create_queue_record
-        QueueSpot.find_or_create_by!(
-          discord_id: event.user.id,
-          peak_sr: member.peak_sr,
-          region: member.region,
-          captain: member.captain,
-          pug_member_id: member.id,
-        )
+      def handle_full_lobby(members)
+        @captains = captains(members)
+        channels = create_voice_channels
+        move_lobby_to_voice_channels(channels, members)
+        ping_lobby_members(members)
       end
 
-      def check_full_grouping
-        pug_lobby = get_lobby_together
-
-        if !pug_lobby.empty?
-          members = get_lobby_members(pug_lobby)
-          remove_queue_spot(pug_lobby)
-          @captains = captains(members)
-          channels = create_voice_channels
-          move_lobby_to_voice_channels(channels, members)
-          ping_lobby_members(members)
-        else
-        end
-      end
-
-      def get_lobby_together
-        lobby = QueueSpot.gm_game(member.region)
-        @channel_name = "GM+ #{member.id}"
-        return lobby if lobby.length == 12
-
-        lobby = QueueSpot.diamond_plus_game(member.region)
-        @channel_name = "Diamond+ #{member.id}"
-        return lobby if lobby.length == 12
-
-        lobby = QueueSpot.mixed_sr_game(member.region)
-        @channel_name = "MixedSR #{member.id}"
-        return lobby if lobby.length == 12
-
-        return []
+      def twelve?
+        event.channel.users.count >= 12
       end
 
       def create_voice_channels
@@ -83,8 +57,8 @@ module PugBot
         end
       end
 
-      def get_lobby_members(pug_lobby)
-        PugMember.where(discord_id: pug_lobby.pluck(:discord_id))
+      def get_lobby_members
+        PugMember.where(discord_id: event.channel.users.map(&:id))
       end
 
       def move_lobby_to_voice_channels(channels, lobby_members)
@@ -107,10 +81,6 @@ The members below are present in the voice channel.
 
 #{member_info(members)}
         """
-      end
-
-      def remove_queue_spot(pug_lobby)
-        pug_lobby.map(&:destroy)
       end
 
       def member_info(members)

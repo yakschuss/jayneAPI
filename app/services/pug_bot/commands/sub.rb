@@ -28,7 +28,7 @@ module PugBot
       attr_accessor :event, :bot
 
       def sub
-        @sub ||= QueueSpot.where(region: region, peak_sr: sr_range).order(created_at: :asc).first
+        @sub = nil
       end
 
       def sr_range
