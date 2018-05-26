@@ -15,6 +15,16 @@ class MemeCommands
     return (minutes / 3.75).round(2)
   end
 
+  def fleta_blade_uptime
+    resp = HTTParty.get(uptime_url)
+
+    minutes = parse_into_minutes(resp)
+
+    puts minutes
+
+    return (minutes / 3.95).round(2)
+  end
+
   def parse_into_minutes(response)
     return 0 if response == "#{channel} is offline"
 
