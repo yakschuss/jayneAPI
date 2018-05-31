@@ -1,12 +1,21 @@
-
-bot = Discordrb::Commands::CommandBot.new(
-  client_id: 439188930873524252,
-  token: ENV["DISCORD_PUG_BOT_TOKEN"],
-  prefix: "?",
+#
+# bot = Discordrb::Commands::CommandBot.new(
+#   client_id: 439188930873524252,
+#   token: ENV["DISCORD_PUG_BOT_TOKEN"],
+#   prefix: "?",
+# )
+#
+# PugBot::PREFIX = bot.prefix
+#
+# pugbot = PugBot::Bot.new(bot)
+#
+# pugbot.run
+#
+bot = Discordrb::Bot.new(
+  client_id: 451760458601594880,
+  token: ENV["DISCORD_T500_BOT_TOKEN"],
 )
 
-PugBot::PREFIX = bot.prefix
+tfive_bot = TFiveBot::Bot.new(bot)
 
-pugbot = PugBot::Bot.new(bot)
-
-pugbot.run
+tfive_bot.run
