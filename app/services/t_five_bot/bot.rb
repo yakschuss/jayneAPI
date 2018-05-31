@@ -22,7 +22,7 @@ module TFiveBot
     end
 
     def moderate_t500_channel(event, bot)
-      prefix = event.message[0..1]
+      prefix = event.message.to_s[0..1]
 
       if prefix == "M:"
         unless event.user.role?(352683696161030167)
