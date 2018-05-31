@@ -22,7 +22,25 @@ module TFiveBot
     end
 
     def moderate_t500_channel(event, bot)
-      puts event.message
+      prefix = event.message[0..1]
+
+      if prefix == "M:"
+        unless event.user.role?(352683696161030167)
+          event.message.delete
+          event.send_message("Uh, you're not a mod.")
+        end
+      elsif prefix == "A:"
+        unless event.user.role?(434171221156823040)
+          event.message.delete
+          event.send_message("You need to have the T500 role to answer questions in this channel. Please message a moderator with proof in order to obtain the role.")
+        end
+      elsif prefix != "Q:"
+        event.message.delete
+        event.send_message("You must prefix all responses with Q: or A: in order to use this channel.")
+      else
+        event.message.delete
+        event.send_message("You must prefix all responses with Q: or A: in order to use this channel.")
+      end
     end
   end
 end
