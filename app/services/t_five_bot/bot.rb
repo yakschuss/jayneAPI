@@ -38,9 +38,9 @@ module TFiveBot
         end
 
         if event.user.role?(455771078539739148)
-          event.message.create_reaction("💻")
-        elsif event.user.role?(434171221156823040)
           event.message.create_reaction("🎮")
+        elsif event.user.role?(434171221156823040)
+          event.message.create_reaction("💻")
         end
       elsif prefix != "Q:"
         event.message.delete
