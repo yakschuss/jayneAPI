@@ -1,3 +1,4 @@
+# <@&455771078539739148> <@&434171221156823040> PC/CONSOLE
 module TFiveBot
   class Bot
     def initialize(bot)
