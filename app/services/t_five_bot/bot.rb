@@ -31,7 +31,7 @@ module TFiveBot
           send_private_message("Uh, you're not a mod. Please don't use the mod tag to answer questions in #ask-a-t500.", event, bot)
         end
       elsif prefix == "A:"
-        unless event.user.role?(434171221156823040)
+        unless event.user.role?(434171221156823040) || event.user.role?(434171221156823040)
           event.message.delete
           send_private_message("You need to have the T500 role to answer questions in #ask-a-t500. Please message a moderator with proof in order to obtain the role.", event, bot)
         end
