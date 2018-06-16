@@ -37,3 +37,15 @@ bot = Discordrb::Bot.new(
 clippy = ClipBot::Bot.new(bot)
 
 clippy.run
+
+gmsr_bot = Discordrb::Bot.new(
+  client_id: 457686233179488256,
+  token: ENV["DISCORD_GMSR_BOT_TOKEN"],
+)
+
+gmsr = GuessBot::Bot.new(gmsr_bot)
+
+gmsr.run
+
+
+
