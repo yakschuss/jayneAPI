@@ -1,4 +1,5 @@
 # <@&455771078539739148> <@&434171221156823040> PC/CONSOLE
+# <@&352683696161030167> MODS
 module TFiveBot
   class Bot
     def initialize(bot)
@@ -30,29 +31,33 @@ module TFiveBot
       if prefix == "M:"
         unless event.user.role?(352683696161030167)
           event.message.delete
-          send_private_message("Uh, you're not a mod. Please don't use the mod tag to answer questions in #ask-a-t500. \n\n #{content}", event, bot)
+          send_private_message("Uh, you're not a mod. Please don't use the mod tag to answer questions in #ask-an-expert. \n\n #{content}", event, bot)
         end
       elsif prefix == "A:"
-        unless event.user.role?(455771078539739148) || event.user.role?(434171221156823040)
+        unless user_has_expert_role?(event)
           event.message.delete
-          send_private_message("You need to have the T500 role to answer questions in #ask-a-t500. Please message a moderator with proof in order to obtain the role. \n\n #{content}", event, bot)
+          send_private_message("You need to have one of the expert roles listed in the channel description in order to answer questions in #ask-an-expert. Please message a moderator with proof in order to obtain the role. \n\n #{content}", event, bot)
           return
         end
-
-        if event.user.role?(455771078539739148)
-          event.message.create_reaction("🎮")
-        elsif event.user.role?(434171221156823040)
-          event.message.create_reaction("💻")
-        end
+          #
+          # event.message.create_reaction("🎮")
+          # event.message.create_reaction("💻")
       elsif prefix != "Q:"
         event.message.delete
-        send_private_message("You must prefix all responses with Q: or A: in order to use #ask-a-t500. \n\n #{content}", event, bot)
+        send_private_message("You must prefix all responses with Q: or A: in order to use #ask-an-expert. \n\n #{content}", event, bot)
       end
     end
 
     def send_private_message(message, event, bot)
       channel = bot.pm_channel(event.user.id)
       bot.send_message(channel, message)
+    end
+
+    def user_has_expert_role?(event)
+      # coach
+      event.user.role?(398229687605919744) ||
+      # big boss
+      event.user.role?(352683399812481026)
     end
   end
 end
