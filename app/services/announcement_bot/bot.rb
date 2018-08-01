@@ -1,0 +1,65 @@
+module AnnouncementBot
+  class Bot
+    def initialize(bot)
+      @bot = bot
+      define_event
+    end
+
+    def run
+      bot.run :async
+    end
+
+    attr_accessor :bot
+
+    private
+
+    def define_event
+      bot.message do |event|
+        if event.channel.id == 474293226170220544
+          capture_announcement(event)
+        end
+      end
+    end
+
+    def capture_announcement(event)
+      (id, username, link, description) = get_contents(event)
+
+      user = event.server.member(id)
+
+      if user.role?(352683399812481026)
+        post_big_boss_message(username, link, description)
+      elsif user.role?(474302144770605086)
+        post_friends_message(username, link, description)
+      else
+      end
+    end
+
+    def get_contents(event)
+      contents = event.message.to_s.split('|')
+
+      [
+        contents.first,
+        contents[1],
+        contents[2],
+        contents.last,
+      ]
+    end
+
+    def post_big_boss_message(username, link, description)
+      message = """
+      Hey @everyone! **#{username}** is now live on Twitch, streaming **#{description}** \n
+      #{link}
+      """
+      bot.send_message(450894482733268992, message)
+    end
+
+    def post_friends_message(username, link, description)
+      message = """
+      Hey! **#{username}** is now live on Twitch, streaming **#{description}** \n
+      #{link}
+      """
+      bot.send_message(450894482733268992, message)
+    end
+
+  end
+end
