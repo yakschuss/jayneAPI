@@ -46,7 +46,7 @@ module AnnouncementBot
 
     def post_big_boss_message(username, link, description)
       message = """
-      Hey @everyone! **#{username}** is now live on Twitch, streaming **#{description}** \n
+      @everyone! WOWIE! **#{username}** is now live on Twitch, streaming **#{description}**
       #{link}
       """
       bot.send_message(450894482733268992, message)
