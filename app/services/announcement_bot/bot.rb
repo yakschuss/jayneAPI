@@ -24,18 +24,17 @@ module AnnouncementBot
     def capture_announcement(event)
       (id, username, link, description) = get_contents(event)
 
-      user = event.server.member(id.to_i)
+      member = event.server.member(id)
 
-      if user.role?(352683399812481026)
+      if member.role?(352683399812481026)
         post_big_boss_message(username, link, description)
-      elsif user.role?(474302144770605086)
+      elsif member.role?(474302144770605086)
         post_friends_message(username, link, description)
-      else
       end
     end
 
     def get_contents(event)
-      contents = event.message.to_s.split('|')
+      contents = event.message.to_s.split('|').map(&:strip)
 
       [
         contents.first,
