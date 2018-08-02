@@ -24,7 +24,7 @@ module AnnouncementBot
     def capture_announcement(event)
       (id, username, link, description) = get_contents(event)
 
-      user = event.server.member(id)
+      user = event.server.member(id.to_i)
 
       if user.role?(352683399812481026)
         post_big_boss_message(username, link, description)
