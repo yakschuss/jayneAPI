@@ -55,7 +55,7 @@ module AnnouncementBot
     def post_friends_message(username, link, description)
       message = """
       Hey! **#{username}** is now live on Twitch, streaming **#{description}** \n
-      #{link}
+      <#{link}>
       """
       bot.send_message(450894482733268992, message)
     end
