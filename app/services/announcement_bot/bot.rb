@@ -34,7 +34,7 @@ module AnnouncementBot
     end
 
     def get_contents(event)
-      contents = event.message.to_s.split('|').map(&:strip)
+      contents = event.message.to_s.split('~~').map(&:strip)
 
       [
         contents.first,
