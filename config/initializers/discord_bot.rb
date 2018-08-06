@@ -47,12 +47,12 @@ gmsr = GuessBot::Bot.new(gmsr_bot)
 
 gmsr.run
 
-announcement_bot = Discordrb::Bot.new(
-  client_id: 474298218658791434,
-  token: ENV["DISCORD_ANNOUNCEMENT_BOT_TOKEN"],
-)
-
-announcement = AnnouncementBot::Bot.new(announcement_bot)
-
-announcement.run
+# announcement_bot = Discordrb::Bot.new(
+#   client_id: 474298218658791434,
+#   token: ENV["DISCORD_ANNOUNCEMENT_BOT_TOKEN"],
+# )
+#
+# announcement = AnnouncementBot::Bot.new(announcement_bot)
+#
+# announcement.run
 
