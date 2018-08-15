@@ -27,7 +27,7 @@ module AnnouncementBot
       member = event.server.member(id)
 
       if member.role?(352683399812481026)
-        return if duplicate?(event)
+        # return if duplicate?(event)
         post_big_boss_message(username, link, description)
 
       elsif member.role?(474302144770605086)
@@ -65,7 +65,7 @@ module AnnouncementBot
     end
 
     def duplicate?(event)
-      event.channel.history(100).select do |message|
+      event.channel.history(10).select do |message|
         message.contents == event.message.contents
       end.any?
     end
