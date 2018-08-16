@@ -27,11 +27,13 @@ module AnnouncementBot
       member = event.server.member(id)
 
       if member.role?(352683399812481026)
-        # return if duplicate?(event)
+        return if duplicate?(event)
         post_big_boss_message(username, link, description)
+        event.message.delete
 
       elsif member.role?(474302144770605086)
         post_friends_message(username, link, description)
+        event.message.delete
       else
         event.message.delete
       end
