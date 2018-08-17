@@ -1,3 +1,4 @@
+#streamer role - 477571288991399936
 module AnnouncementBot
   class Bot
     def initialize(bot)
@@ -27,7 +28,6 @@ module AnnouncementBot
       member = event.server.member(id)
 
       if member.role?(352683399812481026)
-        return if duplicate?(event)
         post_big_boss_message(username, link, description)
       elsif member.role?(474302144770605086)
         post_friends_message(username, link, description)
