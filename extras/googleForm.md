@@ -22,9 +22,12 @@ function onFormSubmit(e) {
 
   for (i = 0; i < e.response.getItemResponses().length; i++) {
     var response = e.response.getItemResponses()[i];
+    var value_temp = response.getResponse();
+    var value = (Array.isArray(value_temp) ? value_temp.join() : value_temp);
+
     fields.push({
       "name": response.getItem().getTitle(),
-      "value": response.getResponse(),
+      "value": value,
       "inline": false
     });
   }
