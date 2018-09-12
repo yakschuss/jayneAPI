@@ -29,7 +29,7 @@ module TFiveBot
       content = event.message.content
 
       if prefix == "M:"
-        unless event.user.role?(352683696161030167)
+        unless event.user.role?(481118818970632203)
           event.message.delete
           send_private_message("Uh, you're not a mod. Please don't use the mod tag to answer questions in #ask-an-expert. \n\n #{content}", event, bot)
         end
