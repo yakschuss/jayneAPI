@@ -29,7 +29,7 @@ module AnnouncementBot
 
       if member.role?(352683399812481026)
         post_big_boss_message(username, link, description)
-      elsif member.role?(474302144770605086)
+      elsif member.role?(477571288991399936)
         post_friends_message(username, link, description)
       else
         event.message.delete
@@ -61,12 +61,6 @@ module AnnouncementBot
       <#{link}>
       """
       bot.send_message(450894482733268992, message)
-    end
-
-    def duplicate?(event)
-      event.channel.history(10).select do |message|
-        message.contents == event.message.contents
-      end.any?
     end
   end
 end
