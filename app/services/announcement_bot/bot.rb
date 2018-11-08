@@ -4,6 +4,7 @@ module AnnouncementBot
     def initialize(bot)
       @bot = bot
       define_event
+      define_test_event
     end
 
     def run
@@ -13,6 +14,15 @@ module AnnouncementBot
     attr_accessor :bot
 
     private
+
+    def define_test_event
+      bot.message(from: 329675732466794506) do |event|
+        next if event.content == @last_message
+        @last_message = event.content
+
+        "hi"
+      end
+    end
 
     def define_event
       bot.message do |event|
