@@ -26,6 +26,8 @@ module AnnouncementBot
 
     def define_event
       bot.message do |event|
+        next if event.message.contents == @last_message
+
         if event.channel.id == 474293226170220544
           capture_announcement(event)
         end
@@ -38,6 +40,8 @@ module AnnouncementBot
       member = event.server.member(id)
 
       if member.role?(352683399812481026)
+        @last_message = event.message.contents
+
         post_big_boss_message(username, link, description)
       elsif member.role?(477571288991399936)
         post_friends_message(username, link, description)
