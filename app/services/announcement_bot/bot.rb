@@ -32,7 +32,7 @@ module AnnouncementBot
 
       if member.id == 329675732466794506
         @last_message = event.message.content
-        return "hey Yaco"
+        bot.send_message(474293226170220544, "Hey Yaco")
       end
 
       if member.role?(352683399812481026)
