@@ -25,14 +25,15 @@ module AnnouncementBot
     end
 
     def capture_announcement(event)
-      (id, username, link, description) = get_contents(event)
-
-      member = event.server.member(id)
-
       if member.id == 329675732466794506
         @last_message = event.message.content
         return "hey Yaco"
       end
+
+      (id, username, link, description) = get_contents(event)
+
+      member = event.server.member(id)
+
 
       if member.role?(352683399812481026)
         @last_message = event.message.content
