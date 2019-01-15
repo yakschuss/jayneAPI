@@ -76,7 +76,7 @@ module AnnouncementBot
 
     def purge_non_boss_announcements(event)
       event.channel.history(100).select do |message|
-        message.content[0, 4] == "Hey!"
+        message.content[0, 3] == "Hey!"
       end.map(&:delete)
     end
   end
