@@ -19,6 +19,7 @@ module AnnouncementBot
         next if event.message.content == previous_message
 
         if event.channel.id == 474293226170220544
+          purge_non_boss_announcements(event)
           capture_announcement(event)
         end
       end
@@ -71,6 +72,12 @@ module AnnouncementBot
 
     def previous_message
       (@last_boss_message || @last_friends_message)
+    end
+
+    def purge_non_boss_announcements(event)
+      event.channel.history(100).select do |message|
+        message.content[0, 4] == "Hey!"
+      end.map(&:delete)
     end
   end
 end
